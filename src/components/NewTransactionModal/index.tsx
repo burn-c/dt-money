@@ -14,22 +14,28 @@ interface NewTransactionModalProps {
   onRequestClose: () => void;
 }
 
-export function NewTransactionModal({isOpen,onRequestClose}: NewTransactionModalProps) {
+export function NewTransactionModal({isOpen, onRequestClose}: NewTransactionModalProps) {
   const { createTransaction } = useContext(TransactionsContext);
   const [title, setTitle] = useState('');
   const [amount, setAmount] = useState(0);
   const [category, setCategory] = useState('');
   const [type, setType] = useState<'deposit' | 'withdraw'>('deposit')
 
-  function handleCreateNewTransaction(event: FormEvent) {
+  async function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();
 
-    createTransaction({
+    await createTransaction({
       title,
       amount,
       category,
       type
     })
+
+    setTitle('');
+    setAmount(0);
+    setCategory('');
+    setType("deposit");
+    onRequestClose();
   }
 
   return (
