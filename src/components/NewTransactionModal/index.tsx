@@ -30,7 +30,7 @@ export function NewTransactionModal({isOpen,onRequestClose}: NewTransactionModal
       type
     };
 
-    api.post('transaction', data)
+    api.post('transaction', data) 
   }
 
   return (
