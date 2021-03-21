@@ -1,6 +1,8 @@
 import { FormEvent, useState } from "react";
 import Modal from "react-modal";
 
+import { api } from "../../services/api";
+
 import { Container, RadioBox, TransactionTypeContainer } from "./styles";
 
 import closeImg from '../../assets/close.svg';
@@ -12,8 +14,6 @@ interface NewTransactionModalProps {
   onRequestClose: () => void;
 }
 
-
-
 export function NewTransactionModal({isOpen,onRequestClose}: NewTransactionModalProps) {
   const [title, setTitle] = useState('');
   const [value, setValue] = useState(0);
@@ -23,12 +23,14 @@ export function NewTransactionModal({isOpen,onRequestClose}: NewTransactionModal
   function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();
 
-    console.info({
+    const data = {
       title,
       value,
       category,
       type
-    })
+    };
+
+    api.post('transaction', data)
   }
 
   return (
